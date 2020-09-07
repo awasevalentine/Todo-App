@@ -1,0 +1,47 @@
+    <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow">
+  <a [routerLink]="['./']" class="navbar-brand col-md-3 col-lg-2 mr-0 px-3">To-Do</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-white w-30" type="text" placeholder="Search" aria-label="Search">
+  <ul class="navbar-nav px-3">
+    <li class="nav-item text-nowrap">
+      <a class="nav-link" href="#">Sign out</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container-fluid" style="margin-top: 60px;">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-5">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/task']">
+              <i class="fa fa-home mr-1" aria-hidden="true"></i>Task </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/important']">
+              <i class="fa fa-star mr-1" aria-hidden="true"></i>Important
+              <span class="badge-round float-right" *ngIf="importantTaskCount" >{{importantTaskCount}}</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/update']">
+              <i class="fa fa-calendar mr-1" aria-hidden="true"></i>Planned
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/dashboard/login']">
+              <i class="fa fa-wrench mr-1" aria-hidden="true"></i>Settings
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4" style="margin-top: 10px;">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
