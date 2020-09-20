@@ -37,7 +37,7 @@
                     </td>
 
                     <div>
-                    <td>{{status}}</td>
+                    <td *ngIf="todo.dueDate == today">{{'completed'}}</td>
                   </div>
                 </tr>
 

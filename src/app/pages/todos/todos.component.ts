@@ -16,7 +16,8 @@ export class TodosComponent implements OnInit {
   @ViewChild('editTodoTemplate', null) editTodoTemplate: TemplateRef<any>; // template reference for the update modal
   editTodoModal: MatDialogRef<any>;
   public todoData: Array<TodoItem> = [];
-  status: boolean;
+  status: boolean = true;
+  today = new Date();
 
   // form control object
   todoDetails: TodoItem = {
@@ -38,6 +39,7 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
     this.getTodos();
+
 
   }
 
@@ -84,14 +86,16 @@ export class TodosComponent implements OnInit {
     });
   }
 
-  myfunc(){
-    //var me = new Date();
-    //console.log(me.getDay());
-    /*if(var1 === Date.now()){
-      this.status ='true';
-      console.log(`my date: `, Date.now());
+ /* myfunc(){
+    var date1 = this.todoDetails.startDate;
+    var date2 = todo;
+    var today = new Date();
+    if( todo == today) {
+      console.log('yes');
+      this.status = true;
     } else {
-      this.status = 'false';
+      console.log('no');
+      this.status = false;
     }
 
 
@@ -104,8 +108,7 @@ export class TodosComponent implements OnInit {
     amountInDays = daysDifference;
     console.log(`the differnce in date is: `, amountInDays);
 
-*/
-  }
+  }*/
 
   // method for the update modal
   showEditTodoDialog() {

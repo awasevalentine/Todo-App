@@ -21,6 +21,8 @@ import { LogoutComponent } from './authentication/logout/logout.component';
 import { AuthService } from './authentication/services/auth.service';
 import { LoggedInGuard } from './authentication/Guard/logged-in.guard';
 import { ActivatedRouteSnapshot } from '@angular/router';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { ActivatedRouteSnapshot } from '@angular/router';
     AppmaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [TodosDataService, AuthService, LoggedInGuard],
   bootstrap: [AppComponent]

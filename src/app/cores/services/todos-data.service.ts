@@ -8,7 +8,7 @@ import { TodoItem } from '../models/todos-interface';
 })
 export class TodosDataService {
 
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:3000';
   private headers = new HttpHeaders().set('Content-Type', 'application/json');
   private myImportant: TodoItem[] = [];
 
@@ -44,7 +44,7 @@ getTodoById(id: any) {
 }
 
 deleteTodo(id: string) {
-  return this.http.delete<TodoItem[]>(`${this.apiUrl}/delete/${id}`, { headers: this.headers});
+  return this.http.delete<TodoItem[]>(`${this.apiUrl}/delet/${id}`, { headers: this.headers});
 }
 
 updateTodo(id, todo: TodoItem) {
