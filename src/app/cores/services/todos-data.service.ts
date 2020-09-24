@@ -8,8 +8,8 @@ import { TodoItem } from '../models/todos-interface';
 })
 export class TodosDataService {
 
-  private apiUrl = 'http://localhost:3000';
-  private headers = new HttpHeaders().set('Content-Type', 'application/json');
+  private apiUrl = 'https://barrondy-todo-app.herokuapp.com/todo/api';
+  //private headers = new HttpHeaders().set('Content-Type', 'application/json');
   private myImportant: TodoItem[] = [];
 
 
@@ -20,15 +20,15 @@ export class TodosDataService {
      return this.http.post(`http://localhost:3000/user/register`, myvalue);
    }*/
 
-getTodo(): Observable<TodoItem[]> {
-  return this.http.get<any>(`${this.apiUrl}/read`,{ headers: this.headers});
+getTodo(){
+  return this.http.get<any>(`${this.apiUrl}/getTodos`/*,{ headers: this.headers}*/);
 }
 getImportantTodos(): Promise<TodoItem[]> {
   return new Promise<TodoItem[]>((resolve, reject) => {
     this.getTodo().subscribe(
       (todos) => {
         // console.log(`retured todos on get important function`, todos);
-        const importantTodos = todos['msg'].filter(td => td.important);
+        const importantTodos = todos.filter(td => td.important);
         resolve(importantTodos);
       },
       (error) => {
@@ -40,20 +40,20 @@ getImportantTodos(): Promise<TodoItem[]> {
 
 }
 getTodoById(id: any) {
-  return this.http.get<any>(`${this.apiUrl}/read/${id}`,{ headers: this.headers});
+  return this.http.get<any>(`${this.apiUrl}/getTodo/${id}`/*,{ headers: this.headers}*/);
 }
 
 deleteTodo(id: string) {
-  return this.http.delete<TodoItem[]>(`${this.apiUrl}/delet/${id}`, { headers: this.headers});
+  return this.http.delete<TodoItem[]>(`${this.apiUrl}/deleteTodo/${id}`/*, { headers: this.headers}*/);
 }
 
 updateTodo(id, todo: TodoItem) {
-  return this.http.put<TodoItem[]>(`${this.apiUrl}/update/${id}`, todo, {headers: this.headers});
+  return this.http.put<TodoItem[]>(`${this.apiUrl}/updateTodo/${id}`, todo/*, {headers: this.headers}*/);
 
 }
 
 postTodo(todo: TodoItem) {
-  return this.http.post<TodoItem[]>(`${this.apiUrl}/create`, todo, {headers: this.headers});
+  return this.http.post<TodoItem[]>(`${this.apiUrl}/createTodo`, todo/*, {headers: this.headers}*/);
 }
 
 setImportantTodo(todo: TodoItem) {

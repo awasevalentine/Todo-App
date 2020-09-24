@@ -48,7 +48,7 @@ export class TodosComponent implements OnInit {
     return this.todoDataService.getTodo().subscribe(
       data => {
 
-        this.todoData = data['msg'];
+        this.todoData = data;
   });
 }
 
