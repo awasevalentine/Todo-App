@@ -2,11 +2,9 @@
     "name": "simple-todo-app",
     "version": "0.0.0",
     "scripts": {
-        "heroku-postinstall": "ng build --aot --prod",
+        "heroku-postinstall": "ng build --prod",
         "ng": "ng",
         "start": "node server.js",
-        "start:heroku":"node dist/server",
-        "postinstall":"npm run build:ssr",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",
