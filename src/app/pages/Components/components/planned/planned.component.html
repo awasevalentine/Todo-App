@@ -1,0 +1,13 @@
+<div class="mt-4 mt-md-0">
+    <div class="mt-4 mt-md-0" *ngFor="let todo of todoData">
+<full-calendar defaultView="dayGridMonth" 
+[plugins]="calendarPlugins"
+[weekends]="true"
+  [events]="[
+    { title: todo.title, start: todo.startDate, end: todo.dueDate}
+  ]"
+
+></full-calendar>
+
+</div>
+</div>  

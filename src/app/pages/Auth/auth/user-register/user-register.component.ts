@@ -1,0 +1,37 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/Models/Services/auth.service';
+
+@Component({
+  selector: 'app-user-register',
+  templateUrl: './user-register.component.html',
+  styleUrls: ['./user-register.component.css']
+})
+export class UserRegisterComponent implements OnInit {
+  regForm: FormGroup;
+
+  constructor(private _snackbar: MatSnackBar, private authService: AuthService, private router: Router) {
+    this.regForm = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      userName: new FormControl('', [Validators.required]),
+      passwordHash: new FormControl('', [Validators.required, Validators.minLength(6)])
+    });
+   }
+
+  ngOnInit() {
+  }
+
+  register() {
+      this.authService.register(this.regForm.value)
+        .subscribe(() => {
+          console.log(`from inside `, this.regForm.value);
+          this._snackbar.open('Your account was successfully created ', 'Ok', {horizontalPosition: 'right', verticalPosition: 'bottom'});
+         this.router.navigateByUrl('/user-login');
+      }, (err) => {
+         console.error(err);
+    });
+}
+    
+  }

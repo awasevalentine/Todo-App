@@ -1,17 +1,23 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AppComponent } from './app.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { PageLayoutComponent } from './pages/page-layout/page-layout.component';
-import { TodosComponent } from './pages/todos/todos.component';
-import { NewTodosComponent } from './pages/new-todos/new-todos.component';
-import { ImportantComponent } from './pages/important/important.component';
-import { TodoUpdateComponent } from './pages/todo-update/todo-update.component';
-import { LoginComponent } from './authentication/login/login.component';
-import { LoggedInGuard } from './authentication/Guard/logged-in.guard';
+import { LoggedInGuard } from './pages/Auth/auth/logged-in.guard';
+import { UserLoginComponent } from './pages/Auth/auth/user-login/user-login.component';
+import { UserRegisterComponent } from './pages/Auth/auth/user-register/user-register.component';
+import { DashboardComponent } from './pages/Components/components/dashboard/dashboard.component';
+import { ImportantComponent } from './pages/Components/components/important/important.component';
+import { NewTodoComponent } from './pages/Components/components/new-todo/new-todo.component';
+import { PageLayoutComponent } from './pages/Components/components/page-layout/page-layout.component';
+import { PlannedComponent } from './pages/Components/components/planned/planned.component';
+import { TodosComponent } from './pages/Components/components/todos/todos.component';
 
 
 const routes: Routes = [
+  {
+    path: 'user-register', component: UserRegisterComponent
+  },
+  {
+    path: 'user-login', component: UserLoginComponent
+  },
   {
     path: '', component: PageLayoutComponent
   },
@@ -25,17 +31,17 @@ const routes: Routes = [
         path: 'task', component: TodosComponent, canActivate: [ LoggedInGuard ]
       },
       {
-        path: 'new-todos', component: NewTodosComponent
+        path: 'new-todos', component: NewTodoComponent
       },
       {
-        path: 'important', component: ImportantComponent
+        path: 'important', component: ImportantComponent, canActivate: [ LoggedInGuard ]
       },
+      
       {
-        path: 'update', component: TodoUpdateComponent
+        path: 'plan', component: PlannedComponent, canActivate: [ LoggedInGuard ]
       },
-      {
-        path: 'login', component: LoginComponent
-      }
+      
+      
     ]
   }
 ];
