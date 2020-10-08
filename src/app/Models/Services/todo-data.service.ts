@@ -8,8 +8,8 @@ import { UserDetails } from '../Interfaces/userDetails.interface';
 })
 export class TodoDataService {
 
-  //private apiUrl = 'https://barrondy-todo-app.herokuapp.com/todo/api';
-  private apiUrl = 'http://localhost:3300/todo/api';
+  private apiUrl = 'https://barrondy-todo-app.herokuapp.com/todo/api';
+  //private apiUrl = 'http://localhost:3300/todo/api';
   //private headers = new HttpHeaders().set('Content-Type', 'application/json');
   private myImportant: TodoItem[] = [];
 
