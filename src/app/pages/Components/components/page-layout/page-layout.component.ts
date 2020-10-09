@@ -63,7 +63,8 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
 
 
   logout(): boolean {
-    this.authService.logOut();
+    //this.authService.logOut();
+    alert('coming up soon!');
     return false;
     }
 
