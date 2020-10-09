@@ -58,6 +58,12 @@ export class TodosComponent implements OnInit {
 
 
 
+  // method for the todo task creation
+  createtodos() {
+    return this.route.navigate(['/dashboard/new-todos']);
+  }
+
+
   // method for getting a particularn user todos from Db
   
   getTodos(userId) {
