@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TodoItem } from 'src/app/Models/Interfaces/todos.interface';
+import { AuthService } from 'src/app/Models/Services/auth.service';
 import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
 
 @Component({
@@ -9,11 +10,14 @@ import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
   styleUrls: ['./important.component.css']
 })
 export class ImportantComponent implements OnInit {
+  loggedInUser: any = {};
   todoData: TodoItem[] = [];
-  constructor(private todoDataService: TodoDataService, private _snackbar: MatSnackBar) { }
+  constructor(private todoDataService: TodoDataService,
+    private _snackbar: MatSnackBar, private authService: AuthService) { }
 
   ngOnInit() {
-    this.todoDataService.getImportantTodos().then(
+    this.loggedInUser = this.authService.getUserDetails();
+    this.todoDataService.getImportantTodos(this.loggedInUser._id).then(
       (response) => {
         this.todoData = response;
       },

@@ -6,4 +6,5 @@ export interface TodoItem{
   dueDate: Date;
   status?: boolean;
   important?: boolean;
+  userId: string;
 }

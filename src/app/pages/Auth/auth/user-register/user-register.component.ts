@@ -25,12 +25,12 @@ export class UserRegisterComponent implements OnInit {
 
   register() {
       this.authService.register(this.regForm.value)
-        .subscribe(() => {
-          console.log(`from inside `, this.regForm.value);
+        .subscribe((data) => {
+          
           this._snackbar.open('Your account was successfully created ', 'Ok', {horizontalPosition: 'right', verticalPosition: 'bottom'});
          this.router.navigateByUrl('/user-login');
       }, (err) => {
-         console.error(err);
+      
     });
 }
     

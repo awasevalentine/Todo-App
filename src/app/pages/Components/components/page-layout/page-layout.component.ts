@@ -11,6 +11,8 @@ import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
   styleUrls: ['./page-layout.component.css']
 })
 export class PageLayoutComponent implements OnInit, OnDestroy {
+
+  loggedInUser: any = {};
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
   message: string;
@@ -33,6 +35,8 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+
+    this.loggedInUser = this.authService.getUserDetails();
     if(this.authService.isLoggedIn){
     this.router.navigateByUrl('/dashboard/task');
     } else {
@@ -45,7 +49,7 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
   }
 
   mylogic() {
-    this._todoService.getImportantTodos().then(
+    this._todoService.getImportantTodos(this.loggedInUser._id).then(
       (importantTodos) => {
         this.importantTaskCount = importantTodos.length;
       }

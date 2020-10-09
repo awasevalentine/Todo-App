@@ -16,6 +16,7 @@ import { AngularMaterialModule } from 'src/app/Global-Modules/angular-material/a
 
 
 
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -35,6 +36,8 @@ import { AngularMaterialModule } from 'src/app/Global-Modules/angular-material/a
     FullCalendarModule,
     AngularMaterialModule,
     AppRoutingModule,
-  ]
+  ],
+  exports: [TodosComponent],
+  providers: []
 })
 export class ComponentsModule { }

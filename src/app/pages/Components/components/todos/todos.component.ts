@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef} from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { TodoItem } from 'src/app/Models/Interfaces/todos.interface';
+import { AuthService } from 'src/app/Models/Services/auth.service';
 import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
 
 @Component({
@@ -12,42 +13,59 @@ import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
   styleUrls: ['./todos.component.css']
 })
 export class TodosComponent implements OnInit {
-  @ViewChild('editTodoTemplate', null) editTodoTemplate: TemplateRef<any>; // template reference for the update modal
+
+  // template reference for the update modal
+  @ViewChild('editTemplateModal', null) editTemplateModal: TemplateRef<any>; 
   editTodoModal: MatDialogRef<any>;
+
+  // container for to hold the returned data from Db
   public todoData: Array<TodoItem> = [];
-  status: boolean = true;
   today = new Date();
 
-  // form control object
+  // form-control object for editing update
+
   todoDetails: TodoItem = {
     title: '',
     description: '',
     startDate: new Date(),
     dueDate: new Date(),
-    // status: boolean;
+    userId: ''
   };
 
-  constructor( private route: Router,
-               private http: HttpClient,
-               private todoDataService: TodoDataService,
-               private _dialog: MatDialog,
-               private _snackbar: MatSnackBar
-               ) {
+  // variable for returned logged in useer from authService
+  loggedInUser: any = {};
 
-  }
+  constructor(private route: Router,
+    private todoDataService: TodoDataService,
+    private _dialog: MatDialog,
+    private _snackbar: MatSnackBar,
+    private _authService: AuthService) { }
+
+  
 
   ngOnInit() {
-    this.getTodos();
 
+    // initiating logged in user returned from Db
+
+    this.loggedInUser = this._authService.getUserDetails();
+    if(!this.loggedInUser) {
+      this.route.navigateByUrl('/user-login');
+    } else {
+      this.getTodos(this.loggedInUser._id);
+    }
 
   }
 
-  // method for getting all todos from Db
-  getTodos() {
-    return this.todoDataService.getTodo().subscribe(
+
+
+  // method for getting a particularn user todos from Db
+  
+  getTodos(userId) {
+    return this.todoDataService.getTodosByUserId(userId).subscribe(
       data => {
 
         this.todoData = data;
+        //this.todoData = data.filter(d => d["_id"] === userId);
   });
 }
 
@@ -66,59 +84,37 @@ export class TodosComponent implements OnInit {
   }
 
 
-  // method for the todo task creation
-  createtodos() {
-    return this.route.navigate(['/dashboard/new-todos']);
-  }
-
   // method for edit button
+
   EditTodo(todos) {
     this.todoDetails = todos;
     this.showEditTodoDialog();
   }
 
 
+   // method for the update todo modal
+  
+   showEditTodoDialog() {
+    this.editTodoModal = this._dialog.open(this.editTemplateModal, {
+      disableClose: false,
+     
+    });
+  }
+
+
   // method for delete todo button
+
   deleteTodo(todos) {
     this.todoDataService.deleteTodo(todos._id).subscribe(data => {
       this.todoData.splice(this.todoData.indexOf(todos),1);
     });
   }
 
- /* myfunc(){
-    var date1 = this.todoDetails.startDate;
-    var date2 = todo;
-    var today = new Date();
-    if( todo == today) {
-      console.log('yes');
-      this.status = true;
-    } else {
-      console.log('no');
-      this.status = false;
-    }
-
-
-    var amountInDays;
-    const date1 = new Date(this.luxForm.get('checkInDate').value);
-    const date2 = new Date(this.luxForm.get('checkOutDate').value);
-    const daysInMiliseconds = 1000 * 60 * 60 * 24;
-    const differenceInTime = date2.getTime() - date1.getTime();
-    const daysDifference = differenceInTime / daysInMiliseconds;
-    amountInDays = daysDifference;
-    console.log(`the differnce in date is: `, amountInDays);
-
-  }*/
-
-  // method for the update modal
-  showEditTodoDialog() {
-    this.editTodoModal = this._dialog.open(this.editTodoTemplate, {
-       disableClose: true
-    });
-  }
+ 
 
   // method for saving the updated todo
+
   saveUpdatesToTodo(todo: TodoItem) {
-    console.log('todo to update', todo);
     this.todoDataService.updateTodo(todo._id, todo).subscribe(
       (response) => {
         this._snackbar.open(`Successfully saved changes to ${todo.title}`, 'Ok', {
@@ -128,11 +124,27 @@ export class TodosComponent implements OnInit {
         this.editTodoModal.close();
       },
       (e) => {
-          this._snackbar.open(`Failed to save changes to ${todo.title}`, 'Ok', {
-            horizontalPosition: 'right',
-            verticalPosition: 'bottom'
-          });
-        }
-    )
+        this._snackbar.open(`Failed to save changes to ${todo.title}`, 'Ok', {
+          horizontalPosition: 'right',
+          verticalPosition: 'bottom'
+        });
+      }
+    );
+  }
+
+
+  // method for status state
+
+  displayTaskStatus(todo: TodoItem): string {
+    const today = new Date();
+    const startDate = new Date(todo.startDate);
+    const duedate = new Date(todo.dueDate);
+    if (today.getDate() < startDate.getDate()) {
+      return "Scheduled";
+    }
+    if(today.getDate() >= startDate.getDate() && today.getDate() <= duedate.getDate()) {
+      return "In-Progress";
+    }
+    return "Completed";
   }
 }

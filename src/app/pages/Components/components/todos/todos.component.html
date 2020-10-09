@@ -13,8 +13,9 @@
                       <th>Description</th>
                       <th>Start Date</th>
                       <th>Due Date</th>
-                      <th>Manage</th>
                       <th>Status</th>
+                      <th>Manage</th>
+                      
                   </tr>
               </thead>
               <tbody>
@@ -26,6 +27,7 @@
                       <td>{{todo.description}}</td>
                       <td>{{todo.startDate | date: "dd, MM, yyyy"}}</td>
                       <td>{{todo.dueDate | date:"dd, MM, yyyy"}}</td>
+                      <td>{{displayTaskStatus(todo)}}</td>
                       <td><a data-toggle="tooltip" data-placement="top" title="Edit todo"
                           class="btn" (click)="EditTodo(todo)">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -35,10 +37,7 @@
                             <i class="fa fa-trash" aria-hidden="true" style="color: red;"></i>
                     </a>
                       </td>
-  
-                      <div>
-                      <td *ngIf="todo.dueDate == today">{{'completed'}}</td>
-                    </div>
+                     
                   </tr>
   
               </tbody>

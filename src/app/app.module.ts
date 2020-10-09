@@ -15,9 +15,11 @@ import { ComponentsModule } from './pages/Components/components/components.modul
 import { FullCalendarModule } from '@fullcalendar/angular';
 
 
+
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,10 +30,11 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     FormsModule,
     HttpClientModule,
     FullCalendarModule,
-    
     AuthModule,
-    ComponentsModule
+    ComponentsModule,
+    
   ],
+
   providers: [TodoDataService, AuthService, LoggedInGuard],
   bootstrap: [AppComponent]
 })

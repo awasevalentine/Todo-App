@@ -10,27 +10,36 @@ import { UserDetails } from '../Interfaces/userDetails.interface';
 })
 export class AuthService {
   private token: any;
-  //public baseUrl = 'http://localhost:3300/auth';
-  private baseUrl = 'https://barrondy-todo-app.herokuapp.com/auth';
+  public baseUrl = 'http://localhost:3300/auth';
+ // private baseUrl = 'https://barrondy-todo-app.herokuapp.com/auth';
 
-  constructor( private http: HttpClient, private router: Router) { 
+  constructor(private http: HttpClient, private router: Router) { }
 
-  }
+
+  
 
   public register (user: TokenPayload): Observable<any> {
     return this.http.post(`${this.baseUrl}/signup`, user);
   }
 
 
+  // User login endpoint interface
+
   public login(user): Observable<any> {
     return this.http.post(`${this.baseUrl}/signin`, user);
   }
 
 
+  // User generated token saved to local stroage
+
   public saveGeneratedToken(token: string): void {
     localStorage.setItem('mean-token', token);
     // this.token = token;
   }
+
+
+
+  // Retrieving token from localStorage
 
   public getToken(): string {
     if (!this.token) {
@@ -38,6 +47,9 @@ export class AuthService {
     }
     return this.token;
   }
+
+
+  // Splitting token in order to extract user details
 
   public getUserDetails(): UserDetails{
     const token = this.getToken();
@@ -51,7 +63,10 @@ export class AuthService {
     }
   }
 
+  
 
+// Returning a bearer user name from splitted token
+  
   getUser(): any {
     const user = this.getUserDetails();
     if (user) {
@@ -60,6 +75,9 @@ export class AuthService {
       return null;
     }
     }
+
+
+    // Method for checking user logged in state
 
   public isLoggedIn(): boolean {
     const user = this.getUserDetails();
@@ -70,6 +88,8 @@ export class AuthService {
     }
   }
 
+
+  // Method to log a particular user out
   public logOut(): void {
     this.token = localStorage.removeItem('mean-token');
     this.router.navigateByUrl('/user-login');
