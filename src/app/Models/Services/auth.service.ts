@@ -10,8 +10,8 @@ import { UserDetails } from '../Interfaces/userDetails.interface';
 })
 export class AuthService {
   private token: any;
-  public baseUrl = 'http://localhost:3300/auth';
- // private baseUrl = 'https://barrondy-todo-app.herokuapp.com/auth';
+  //public baseUrl = 'http://localhost:3300/auth';
+  private baseUrl = 'https://ng-task-manager.herokuapp.com/auth';
 
   constructor(private http: HttpClient, private router: Router) { }
 

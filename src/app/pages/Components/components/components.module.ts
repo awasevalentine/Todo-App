@@ -13,6 +13,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AngularMaterialModule } from 'src/app/Global-Modules/angular-material/angular-material.module';
+import { HomePageComponent } from './home-page/home-page.component';
 
 
 
@@ -24,7 +25,8 @@ import { AngularMaterialModule } from 'src/app/Global-Modules/angular-material/a
     NewTodoComponent,
     PageLayoutComponent,
     PlannedComponent,
-    TodosComponent],
+    TodosComponent,
+    HomePageComponent],
   
   imports: [
     CommonModule,

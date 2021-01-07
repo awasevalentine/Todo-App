@@ -19,7 +19,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let todo of todoData; let i=index">
+                  <tr *ngFor="let todo of todoData; trackBy: trackById; let i=index">
                       <td><a type="button" data-toggle="tooltip" data-placement="left" title="Set todo as important"
                            class="btn align-center btn mr-3" [ngClass]="{'is-important': todo.important}" >
                         <i class="fa fa-star ml-0 align-center" aria-hidden="true" (click)="onSelect(todo)"></i></a>{{i+1}}</td>

@@ -46,6 +46,7 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
       ()=> {
         this.mylogic();
       }, 1000);
+    //this.mylogic();
   }
 
   mylogic() {
@@ -55,6 +56,13 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
       }
     );
     // this.importantTaskCount = this._todoService.getmyImportant().length;
+    
+    /*this._todoService.myImportantTodo(this.loggedInUser._id).subscribe(
+      (data) => {
+        this.importantTaskCount = data.length;
+        console.log(`data received is -> `, data);
+      }
+    )*/
   }
 
   login() {
@@ -62,14 +70,16 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
   }
 
 
-  logout(): boolean {
+  setting(): boolean {
     //this.authService.logOut();
     alert('coming up soon!');
     return false;
     }
 
-  
-  
+  logout(): boolean {
+    this.authService.logOut();
+    return false;
+  }
 
   ngOnDestroy(): void {
     this.mobileQuery.removeListener(this._mobileQueryListener);

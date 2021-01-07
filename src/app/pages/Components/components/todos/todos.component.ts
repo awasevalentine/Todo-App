@@ -116,6 +116,10 @@ export class TodosComponent implements OnInit {
     });
   }
 
+  trackById(index:number, data: any) {
+    return  data._id;
+  }
+
  
 
   // method for saving the updated todo

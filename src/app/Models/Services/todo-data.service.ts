@@ -3,15 +3,18 @@ import { ErrorHandler, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TodoItem } from '../Interfaces/todos.interface';
 import { UserDetails } from '../Interfaces/userDetails.interface';
+import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoDataService {
 
-  //private apiUrl = 'https://barrondy-todo-app.herokuapp.com/todo/api';
-  private apiUrl = 'http://localhost:3300/todo/api';
+  private apiUrl = 'https://ng-task-manager.herokuapp.com/todo/api';
+ // private apiUrl = 'http://localhost:3300/todo/api';
   //private headers = new HttpHeaders().set('Content-Type', 'application/json');
+  
   private myImportant: TodoItem[] = [];
 
 
@@ -35,6 +38,11 @@ export class TodoDataService {
       return this.http.get<any>(`${this.apiUrl}/userId/${userId}`/*,{ headers: this.headers}*/);
       }
 
+
+  public myImportantTodo(userId: any): Observable<TodoItem[]> {
+    const myWebSocket: WebSocketSubject<any> = webSocket(`ws://barrondy-todo-app.herokuapp.com/todo/api/userId/${userId}`);
+    return myWebSocket.asObservable();
+  }
       // Method for getting todo by id
       public getTodoById(id: any) {
         return this.http.get<any>(`${this.apiUrl}/getTodo/${id}`/*,{ headers: this.headers}*/);

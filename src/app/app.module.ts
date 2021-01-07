@@ -20,6 +20,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 @NgModule({
   declarations: [
     AppComponent,
+  
   ],
   imports: [
     BrowserModule,
