@@ -13,6 +13,7 @@ import { LoggedInGuard } from './pages/Auth/auth/logged-in.guard';
 import { AngularMaterialModule } from './Global-Modules/angular-material/angular-material.module';
 import { ComponentsModule } from './pages/Components/components/components.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
+import { APP_BASE_HREF } from '@angular/common';
 
 
 
@@ -36,7 +37,12 @@ import { FullCalendarModule } from '@fullcalendar/angular';
     
   ],
 
-  providers: [TodoDataService, AuthService, LoggedInGuard],
+  providers: [
+    TodoDataService,
+    AuthService,
+    LoggedInGuard,
+    {provide: APP_BASE_HREF, useValue: '/'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
