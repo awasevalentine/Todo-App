@@ -2,6 +2,11 @@
     
 <full-calendar defaultView="dayGridMonth" 
 [plugins]="calendarPlugins"
+[header]="{
+  left: 'prev,next today',
+  center: 'title',
+  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek, month'
+}"
 [weekends]="true"
   [events]=getEventsForCalendar(todoData)
   themeSystem= 'bootstrap'

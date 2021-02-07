@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AngularMaterialModule } from 'src/app/Global-Modules/angular-material/angular-material.module';
 import { HomePageComponent } from './home-page/home-page.component';
+import { SidebarModule } from 'ng-sidebar';
 
 
 
@@ -38,6 +39,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     FullCalendarModule,
     AngularMaterialModule,
     AppRoutingModule,
+    SidebarModule.forRoot()
   ],
   exports: [TodosComponent],
   providers: []

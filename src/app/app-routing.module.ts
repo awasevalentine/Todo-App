@@ -3,13 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoggedInGuard } from './pages/Auth/auth/logged-in.guard';
 import { UserLoginComponent } from './pages/Auth/auth/user-login/user-login.component';
 import { UserRegisterComponent } from './pages/Auth/auth/user-register/user-register.component';
-import { DashboardComponent } from './pages/Components/components/dashboard/dashboard.component';
-import { HomePageComponent } from './pages/Components/components/home-page/home-page.component';
-import { ImportantComponent } from './pages/Components/components/important/important.component';
-import { NewTodoComponent } from './pages/Components/components/new-todo/new-todo.component';
-import { PageLayoutComponent } from './pages/Components/components/page-layout/page-layout.component';
-import { PlannedComponent } from './pages/Components/components/planned/planned.component';
-import { TodosComponent } from './pages/Components/components/todos/todos.component';
+import { DashboardComponent } from './pages/Components/dashboard/dashboard.component';
+import { HomePageComponent } from './pages/Components/home-page/home-page.component';
+import { ImportantComponent } from './pages/Components/important/important.component';
+import { NewTodoComponent } from './pages/Components/new-todo/new-todo.component';
+import { PageLayoutComponent } from './pages/Components/page-layout/page-layout.component';
+import { PlannedComponent } from './pages/Components/planned/planned.component';
+import { TodosComponent } from './pages/Components/todos/todos.component';
 
 
 const routes: Routes = [

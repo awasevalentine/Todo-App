@@ -45,6 +45,11 @@ export class TodosComponent implements OnInit {
 
   ngOnInit() {
 
+    setTimeout(() => {
+      window.dispatchEvent(
+        new Event('resize')
+      );
+    }, 300);
     // initiating logged in user returned from Db
 
     this.loggedInUser = this._authService.getUserDetails();

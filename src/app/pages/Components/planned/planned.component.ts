@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Calendar } from '@fullcalendar/core';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import listPlugin from '@fullcalendar/list'; 
 import timeGridePlugin from '@fullcalendar/timegrid'; // a plugin
-import { FullCalendarComponent } from '@fullcalendar/angular';
+
 import { TodoItem } from 'src/app/Models/Interfaces/todos.interface';
 import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
 import { AuthService } from 'src/app/Models/Services/auth.service';
@@ -17,11 +17,11 @@ import { AuthService } from 'src/app/Models/Services/auth.service';
 })
 export class PlannedComponent implements OnInit {
   @ViewChild('fullcalendar', null) fullcalendar: FullCalendarComponent;
-  calendarPlugins;
+  calendarPlugins=[dayGridPlugin, interactionPlugin, bootstrapPlugin, timeGridePlugin, listPlugin];
   public todoData: Array<TodoItem> = [];
   loggedInUser: any = {};
   constructor(private todoDataService: TodoDataService, private _authService: AuthService) {
-    const name = Calendar.name;
+    
   }
 
   ngOnInit() {
@@ -30,7 +30,7 @@ export class PlannedComponent implements OnInit {
     this.loggedInUser = this._authService.getUserDetails();
     this.getTodos();
 
-    this.calendarPlugins = [dayGridPlugin, interactionPlugin, bootstrapPlugin, timeGridePlugin, listPlugin];
+    //this.calendarPlugins = [dayGridPlugin, interactionPlugin, bootstrapPlugin, timeGridePlugin, listPlugin];
   }
 
 

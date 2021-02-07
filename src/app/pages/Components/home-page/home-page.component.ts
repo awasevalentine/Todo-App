@@ -14,7 +14,7 @@ export class HomePageComponent implements OnInit {
   }
 
   onStartButtonClicked() {
-    this.router.navigate(['/user-register']);
+    this.router.navigate(['/user-login']);
   }
 
 }

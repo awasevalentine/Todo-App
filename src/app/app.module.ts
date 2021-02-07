@@ -11,9 +11,11 @@ import { TodoDataService } from './Models/Services/todo-data.service';
 import { AuthService } from './Models/Services/auth.service';
 import { LoggedInGuard } from './pages/Auth/auth/logged-in.guard';
 import { AngularMaterialModule } from './Global-Modules/angular-material/angular-material.module';
-import { ComponentsModule } from './pages/Components/components/components.module';
+import { ComponentsModule } from './pages/Components/components.module';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { APP_BASE_HREF } from '@angular/common';
+import { HeaderComponent } from './shared/header/header.component';
+import { FooterComponent } from './shared/footer/footer.component';
 
 
 
@@ -21,6 +23,8 @@ import { APP_BASE_HREF } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    FooterComponent,
   
   ],
   imports: [
@@ -34,6 +38,7 @@ import { APP_BASE_HREF } from '@angular/common';
     FullCalendarModule,
     AuthModule,
     ComponentsModule,
+    
     
   ],
 

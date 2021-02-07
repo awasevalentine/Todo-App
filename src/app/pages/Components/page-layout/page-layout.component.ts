@@ -1,7 +1,9 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthService } from 'src/app/Models/Services/auth.service';
 import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
 
@@ -12,6 +14,11 @@ import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
 })
 export class PageLayoutComponent implements OnInit, OnDestroy {
 
+  openSidenav:boolean;
+  private screenWidth$ = new BehaviorSubject<number> (window.innerWidth);
+
+  @ViewChild('sidenav', null) matSidenav: MatSidenav;
+  
   loggedInUser: any = {};
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -36,6 +43,15 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
+    this.getScreenWidth().subscribe(width => {
+      if (width < 640) {
+       this.openSidenav = false;
+     }
+     else if (width > 640) {
+       this.openSidenav = true;
+     }
+   });
+
     this.loggedInUser = this.authService.getUserDetails();
     if(this.authService.isLoggedIn){
     this.router.navigateByUrl('/dashboard/task');
@@ -44,25 +60,26 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
     }
    setInterval(
       ()=> {
-        this.mylogic();
+        this.getImportantTodos();
       }, 1000);
-    //this.mylogic();
   }
 
-  mylogic() {
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.screenWidth$.next(event.target.innerWidth);
+  }
+  getScreenWidth(): Observable<number> {
+    return this.screenWidth$.asObservable();
+  }
+
+
+
+  getImportantTodos() {
     this._todoService.getImportantTodos(this.loggedInUser._id).then(
       (importantTodos) => {
         this.importantTaskCount = importantTodos.length;
       }
     );
-    // this.importantTaskCount = this._todoService.getmyImportant().length;
-    
-    /*this._todoService.myImportantTodo(this.loggedInUser._id).subscribe(
-      (data) => {
-        this.importantTaskCount = data.length;
-        console.log(`data received is -> `, data);
-      }
-    )*/
   }
 
   login() {
