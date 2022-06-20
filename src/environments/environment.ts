@@ -4,8 +4,11 @@
 
 export const environment = {
   production: false,
-  authUrl: 'http://localhost:3300/api/auth',
-  todosUrl: 'http://localhost:3300/api/todos'
+  // authUrl: 'http://localhost:3300/api/auth',
+  // todosUrl: 'http://localhost:3300/api/todos'
+
+  authUrl: "https://comobo-apis.herokuapp.com/api/auth",
+  todosUrl: "https://comobo-apis.herokuapp.com/api/todos"
 };
 
 /*
