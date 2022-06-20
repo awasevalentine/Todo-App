@@ -13,7 +13,7 @@ export class UserRegisterComponent implements OnInit {
   regForm: FormGroup;
   errordata
   public errorMessage = {
-    username: '',
+    name: '',
     email: '',
     password: ''
   }
@@ -21,21 +21,21 @@ export class UserRegisterComponent implements OnInit {
   constructor(private _snackbar: MatSnackBar, private authService: AuthService, private router: Router) {
     this.regForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      userName: new FormControl('', [Validators.required]),
-      passwordHash: new FormControl('', [Validators.required, Validators.minLength(6)])
+      name: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
    }
 
   ngOnInit() {
-    
-      console.log(`this is for username -> `, this.errorMessage.username);
-    
+
+      console.log(`this is for username -> `, this.errorMessage.name);
+
   }
 
   register() {
       this.authService.register(this.regForm.value)
         .subscribe((data) => {
-          
+
           this._snackbar.open('Your account was successfully created ', 'Ok', {horizontalPosition: 'right', verticalPosition: 'bottom'});
          this.router.navigateByUrl('/user-login');
       }, (err) => {
@@ -43,5 +43,5 @@ export class UserRegisterComponent implements OnInit {
             console.log('the error data ->', this.errorMessage);
     });
 }
-    
+
   }

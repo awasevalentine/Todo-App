@@ -15,7 +15,7 @@ import { TodoDataService } from 'src/app/Models/Services/todo-data.service';
 export class TodosComponent implements OnInit {
 
   // template reference for the update modal
-  @ViewChild('editTemplateModal', null) editTemplateModal: TemplateRef<any>; 
+  @ViewChild('editTemplateModal', null) editTemplateModal: TemplateRef<any>;
   editTodoModal: MatDialogRef<any>;
 
   // container for to hold the returned data from Db
@@ -41,7 +41,7 @@ export class TodosComponent implements OnInit {
     private _snackbar: MatSnackBar,
     private _authService: AuthService) { }
 
-  
+
 
   ngOnInit() {
 
@@ -56,7 +56,7 @@ export class TodosComponent implements OnInit {
     if(!this.loggedInUser) {
       this.route.navigateByUrl('/user-login');
     } else {
-      this.getTodos(this.loggedInUser._id);
+      this.getTodos(this.loggedInUser.userId);
     }
 
   }
@@ -70,7 +70,7 @@ export class TodosComponent implements OnInit {
 
 
   // method for getting a particularn user todos from Db
-  
+
   getTodos(userId) {
     return this.todoDataService.getTodosByUserId(userId).subscribe(
       data => {
@@ -104,11 +104,11 @@ export class TodosComponent implements OnInit {
 
 
    // method for the update todo modal
-  
+
    showEditTodoDialog() {
     this.editTodoModal = this._dialog.open(this.editTemplateModal, {
       disableClose: false,
-     
+
     });
   }
 
@@ -125,7 +125,7 @@ export class TodosComponent implements OnInit {
     return  data._id;
   }
 
- 
+
 
   // method for saving the updated todo
 

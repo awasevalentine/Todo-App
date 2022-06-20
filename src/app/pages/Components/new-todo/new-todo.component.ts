@@ -42,15 +42,15 @@ export class NewTodoComponent implements OnInit {
   }
 
   // method for the form submission
-  
+
   newTodosForm() {
-    this.todoDetails.userId =  this.loggedInUser._id;
+    this.todoDetails.userId =  this.loggedInUser.userId;
     this.todoDataService.postTodo(this.todoDetails).subscribe(
       data => {
         //console.log(`this are the created data ->`, data);
       }
     );
-    
+
     this._snackbar.open('New todo saved ', 'Ok', { horizontalPosition: 'right', verticalPosition: 'bottom' });
     return this.route.navigate(['dashboard/task']);
 

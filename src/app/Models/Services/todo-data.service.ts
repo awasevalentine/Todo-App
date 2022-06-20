@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { TodoItem } from '../Interfaces/todos.interface';
 import { UserDetails } from '../Interfaces/userDetails.interface';
 import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -11,10 +12,10 @@ import {webSocket, WebSocketSubject} from 'rxjs/webSocket';
 })
 export class TodoDataService {
 
-  private apiUrl = 'https://ng-task-manager.herokuapp.com/todo/api';
- // private apiUrl = 'http://localhost:3300/todo/api';
   //private headers = new HttpHeaders().set('Content-Type', 'application/json');
-  
+
+
+
   private myImportant: TodoItem[] = [];
 
 
@@ -23,19 +24,19 @@ export class TodoDataService {
 
 
       public postTodo(todo: TodoItem) {
-        return this.http.post<TodoItem[]>(`${this.apiUrl}/createTodo`, todo/*, {headers: this.headers}*/);
+        return this.http.post<TodoItem[]>(`${environment.todosUrl}/createTodo`, todo/*, {headers: this.headers}*/);
       }
 
 
-    
+
       // Method for getting user todos
       public getTodo(){
-      return this.http.get<any>(`${this.apiUrl}/getTodos`/*,{ headers: this.headers}*/);
+      return this.http.get<any>(`${environment.todosUrl}/getTodos`/*,{ headers: this.headers}*/);
       }
 
       // Method for getting user todos by userid
       public getTodosByUserId(userId: any): Observable<TodoItem[]>{
-      return this.http.get<any>(`${this.apiUrl}/userId/${userId}`/*,{ headers: this.headers}*/);
+      return this.http.get<any>(`${environment.todosUrl}/userId/${userId}`/*,{ headers: this.headers}*/);
       }
 
 
@@ -45,19 +46,19 @@ export class TodoDataService {
   }
       // Method for getting todo by id
       public getTodoById(id: any) {
-        return this.http.get<any>(`${this.apiUrl}/getTodo/${id}`/*,{ headers: this.headers}*/);
+        return this.http.get<any>(`${environment.todosUrl}/getTodo/${id}`/*,{ headers: this.headers}*/);
       }
 
 
       // Method for deleting  user todo
       public deleteTodo(id: string) {
-      return this.http.delete<TodoItem[]>(`${this.apiUrl}/deleteTodo/${id}`/*, { headers: this.headers}*/);
+      return this.http.delete<TodoItem[]>(`${environment.todosUrl}/deleteTodo/${id}`/*, { headers: this.headers}*/);
       }
 
 
       // Method for updating user todo
       public updateTodo(id, todo: TodoItem) {
-        return this.http.put<TodoItem[]>(`${this.apiUrl}/updateTodo/${id}`, todo/*, {headers: this.headers}*/);
+        return this.http.put<TodoItem[]>(`${environment.todosUrl}/updateTodo/${id}`, todo/*, {headers: this.headers}*/);
 
       }
 
@@ -74,14 +75,14 @@ export class TodoDataService {
       );
 
     }
-      
+
 
       // Method for getting user important todos
         getImportantTodos(userId: any): Promise<TodoItem[]> {
         return new Promise<TodoItem[]>((resolve, reject) => {
           this.getTodosByUserId(userId).subscribe(
           (todos) => {
-          
+
             const importantTodos = todos.filter(td => td.important);
             resolve(importantTodos);
           },
@@ -104,5 +105,5 @@ export class TodoDataService {
         );
         return true;
       }
-      
+
     }

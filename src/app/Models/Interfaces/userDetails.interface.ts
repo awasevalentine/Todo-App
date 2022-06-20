@@ -1,8 +1,8 @@
 export interface UserDetails {
-  userName: string;
+  name: string;
   email: string;
-  passwordHash: string;
+  password: string;
   exp?: number;
   iat?: number;
-  _id?: string;
+  userId?: string;
 }

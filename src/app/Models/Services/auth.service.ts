@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { TokenPayload } from '../Interfaces/tokenPayload.interface';
 import { UserDetails } from '../Interfaces/userDetails.interface';
 
@@ -10,23 +11,20 @@ import { UserDetails } from '../Interfaces/userDetails.interface';
 })
 export class AuthService {
   private token: any;
-  //public baseUrl = 'http://localhost:3300/auth';
-  private baseUrl = 'https://ng-task-manager.herokuapp.com/auth';
-
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  
+
 
   public register (user: TokenPayload): Observable<any> {
-    return this.http.post(`${this.baseUrl}/signup`, user);
+    return this.http.post(`${environment.authUrl}/register`, user);
   }
 
 
   // User login endpoint interface
 
   public login(user): Observable<any> {
-    return this.http.post(`${this.baseUrl}/signin`, user);
+    return this.http.post(`${environment.authUrl}/login`, user);
   }
 
 
@@ -63,14 +61,15 @@ export class AuthService {
     }
   }
 
-  
+
 
 // Returning a bearer user name from splitted token
-  
+
   getUser(): any {
     const user = this.getUserDetails();
+    console.log("User details returned ", user)
     if (user) {
-      return user.userName;
+      return user.name;
     } else {
       return null;
     }
@@ -94,7 +93,7 @@ export class AuthService {
     this.token = localStorage.removeItem('mean-token');
     this.router.navigateByUrl('/user-login');
   }
-  
+
 
   userLogin() {
     this.router.navigateByUrl('/user-login');
