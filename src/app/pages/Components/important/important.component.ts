@@ -17,7 +17,7 @@ export class ImportantComponent implements OnInit {
 
   ngOnInit() {
     this.loggedInUser = this.authService.getUserDetails();
-    this.todoDataService.getImportantTodos(this.loggedInUser._id).then(
+    this.todoDataService.getImportantTodos(this.loggedInUser.userId).then(
       (response) => {
         this.todoData = response;
       },

@@ -10,7 +10,7 @@ import { UserDetails } from '../Interfaces/userDetails.interface';
   providedIn: 'root'
 })
 export class AuthService {
-  private token: any;
+  // private token: any;
   constructor(private http: HttpClient, private router: Router) { }
 
 
@@ -31,8 +31,7 @@ export class AuthService {
   // User generated token saved to local stroage
 
   public saveGeneratedToken(token: string): void {
-    localStorage.setItem('mean-token', token);
-    // this.token = token;
+    localStorage.setItem('user', token);
   }
 
 
@@ -40,10 +39,7 @@ export class AuthService {
   // Retrieving token from localStorage
 
   public getToken(): string {
-    if (!this.token) {
-      this.token = localStorage.getItem('mean-token');
-    }
-    return this.token;
+      return localStorage.getItem('user');
   }
 
 
@@ -67,7 +63,7 @@ export class AuthService {
 
   getUser(): any {
     const user = this.getUserDetails();
-    console.log("User details returned ", user)
+    // console.log("User details returned ", user)
     if (user) {
       return user.name;
     } else {
@@ -90,7 +86,7 @@ export class AuthService {
 
   // Method to log a particular user out
   public logOut(): void {
-    this.token = localStorage.removeItem('mean-token');
+    localStorage.removeItem('user');
     this.router.navigateByUrl('/user-login');
   }
 

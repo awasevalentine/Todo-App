@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/Models/Services/auth.service';
   styleUrls: ['./user-login.component.css']
 })
 export class UserLoginComponent implements OnInit {
-  token: '';
+  showPassword: boolean
 
   loginForm: FormGroup;
 
@@ -22,22 +22,27 @@ export class UserLoginComponent implements OnInit {
     });
   }
 
+
+  showPasswordText(){
+    this.showPassword = !this.showPassword
+  }
   ngOnInit() {
   }
 
   login() {
     this.authService.login(this.loginForm.value)
       .subscribe((data) => {
-        
+      if(data.accessToken){
         this.authService.saveGeneratedToken(data.accessToken);
-        this.token = data.accessToken;
         this.router.navigateByUrl('/dashboard');
-        this._snackbar.open('User successfully logged in', 'Ok', { horizontalPosition: 'right', verticalPosition: 'bottom' });
-        
+        this._snackbar.open('User successfully logged in', 'Ok', { horizontalPosition: 'right', verticalPosition: 'top', duration: 2000 });
         return;
-      }, (err) => {
-          
+      }
+      else{
+        this._snackbar.open(data.message, 'Ok', { horizontalPosition: 'right', verticalPosition: 'top', duration: 2000});
+      }
+
       });
-    
+
   }
 }

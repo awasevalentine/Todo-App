@@ -11,8 +11,10 @@
 </div>
 <div>
     <mat-form-field appearance="standard" class="w-100">
-        <mat-label>Password</mat-label> <input autocomplete="off" type="password" matInput name="userPassword" id="userpassword" formControlName="password">
-        <mat-icon matSuffix> <i class="fa fa-unlock-alt" aria-hidden="true" style="font-size: 15px;"></i></mat-icon>
+        <mat-label>Password</mat-label> <input autocomplete="off" [type]="showPassword ? 'text' : 'password'" matInput name="userPassword" id="userpassword" formControlName="password">
+        <mat-icon matSuffix> <i class="fa"
+          [ngClass]="{'fa-eye-slash': !showPassword, 'fa-eye': showPassword}"
+          style="font-size: 15px; display: flex; align-items: center;" (click)="showPasswordText()"></i></mat-icon>
     </mat-form-field>
 </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>

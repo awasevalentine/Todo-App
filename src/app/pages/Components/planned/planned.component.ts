@@ -3,7 +3,7 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
-import listPlugin from '@fullcalendar/list'; 
+import listPlugin from '@fullcalendar/list';
 import timeGridePlugin from '@fullcalendar/timegrid'; // a plugin
 
 import { TodoItem } from 'src/app/Models/Interfaces/todos.interface';
@@ -21,11 +21,11 @@ export class PlannedComponent implements OnInit {
   public todoData: Array<TodoItem> = [];
   loggedInUser: any = {};
   constructor(private todoDataService: TodoDataService, private _authService: AuthService) {
-    
+
   }
 
   ngOnInit() {
-    
+
 
     this.loggedInUser = this._authService.getUserDetails();
     this.getTodos();
@@ -35,7 +35,7 @@ export class PlannedComponent implements OnInit {
 
 
   getTodos() {
-    return this.todoDataService.getTodosByUserId(this.loggedInUser._id).subscribe(
+    return this.todoDataService.getTodosByUserId(this.loggedInUser.userId).subscribe(
       data => {
 
         this.todoData = data;
@@ -61,7 +61,7 @@ export class PlannedComponent implements OnInit {
       }
       return { "color": "yellow" };
     })
-    
+
     return data;
   }
 

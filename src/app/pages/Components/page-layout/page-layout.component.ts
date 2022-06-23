@@ -18,7 +18,7 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
   private screenWidth$ = new BehaviorSubject<number> (window.innerWidth);
 
   @ViewChild('sidenav', null) matSidenav: MatSidenav;
-  
+
   loggedInUser: any = {};
   mobileQuery: MediaQueryList;
   private _mobileQueryListener: () => void;
@@ -75,7 +75,7 @@ export class PageLayoutComponent implements OnInit, OnDestroy {
 
 
   getImportantTodos() {
-    this._todoService.getImportantTodos(this.loggedInUser._id).then(
+    this._todoService.getImportantTodos(this.loggedInUser.userId).then(
       (importantTodos) => {
         this.importantTaskCount = importantTodos.length;
       }
